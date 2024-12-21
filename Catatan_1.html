@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Apa itu C++?</title>
+	<link rel="stylesheet" href="Catatan_1.css">
+	<script type="text/javascript" src="Catatan_1.js"></script>
+</head>
+<body>
+	<div class="header">
+	<img src="Ikon_Cpp.svg" id="Cpp">
+	<h1>Pengenalan Bahasa C++</h1>
+	<img src="Ikon_Cpp.svg" id="Cpp">
+    </div>
+
+	<div class="container">
+		<h2>Apa itu C++?</h2>
+		<p>
+		C++ atau Cpp adalah sebuah bahasa pemrograman yang dikembangkan oleh Bjarne stroustrup pada tahun 1985, sebagai bentuk pengembangan bahasa C. Bahasa C++ sendiri telah distandarisasi pada tahun 1998 sebagai versi pertama dari bahasa C++ yang disebut sebagai C++98.
+	    </p>
+
+	    <h2>Karakteristik Bahasa C++</h2>
+	    <p>
+	    Bahasa C++ sendiri memiliki karakteristik yang membedakannya dengan bahasa pemrograman yang lain. diantaranya:
+	    </p>
+	    <h4>1.Compiled Language</h4>
+	    <p>
+	    Compiled Language atau Bahasa yang dikompilasi adalah bahasa pemrograman yang diubah menjadi kode mesin sehingga prosesor dapat menjalankannya, yang dimana hal ini menjadikan bahasa C++ dapat dijalankan pada perangkat dengan kernel yang berbeda. Berbeda dengan Interpreted language, untuk menjalankannya, bahasa C++ harus melalui beberapa tahapan yaitu preprocessing, Compiling, Linking, dan Execute.
+	    </p>
+	    <h4>2.Object Oriented Programming</h4>
+	    <p>
+	    Object Oriented Programming, yaitu suatu metode pemrograman yang fokus atau berorientasi pada objek, lebih rincinya dalam pemrograman C++ terdapat tahapan compiling, jadi dalam tahapan ini program yang kita tulis akan "diterjemahkan" menjadi file objek (.obj), yang nantinya pada tahap lingking file-file objek ini dapat kita hubungkan dan dapat dieksekusi/dijalankan.
+	    </p>
+	    <h4>3.Multi-Platform</h4>
+	    <p>
+	    C++ merupakan salahsatu bahasa pemrograman yang dapat dijalankan di perangkat yang berbeda-beda atau multi-platform. Sebagai bahasa yang dikompilasi, C++ memiliki library/pustaka standar yang sebagian besar dapat dijalankan di berbagai perangkat.
+	    </p>
+
+	    <h2>Perkembangan Bahasa C++</h2>
+	    <table>
+	    	<tr>
+	    		<th>Versi C++</th>
+	    		<th>Fitur yang ditambahkan</th>
+	    		<th>Jenis Pengembangan</th>
+	    	</tr>
+	    	<tr>
+	    		<td>ISO/IEC 14882:1998 (C++98)</td>
+	    		<td>
+	    			<ul>
+	    				<li>Templates</li>
+	    				<li>Exceptions</li>
+	    				<li>Namespaces</li>
+	    				<li>The Bool Type</li>
+	    				<li>The Typename Keyword</li>
+	    				<li>The Explicit Keyword</li>
+	    				<li>Member Function 'const'ness</li>
+	    				<li>Member Templates</li>
+	    				<li>Template Specialization</li>
+                        <li>Multiple Inheritance and Virtual Functions</li>
+                        <li>The mutable Keyword</li>
+                        <li>Dynamic Memory Management</li>
+	    			</ul>
+	    		</td>
+	    		<td>Standarisasi Pertama</td>
+	    	</tr>
+	    	<tr>
+	    		<td>ISO/IEC 14882:2003 (C++03)</td>
+	    		<td>
+	    			<ul>
+	    				<li>Explicit Template Instantiations</li>
+	    				<li>Value Initialization</li>
+	    				<li>Koenig Lookup</li>
+	    				<li>Enhancements to Member Templates</li>
+	    				<li>Improvements to Exception Handling</li>
+	    			</ul>
+	    		</td>
+	    		<td>Minor</td>
+	    	</tr>
+	    	<tr>
+	    		<td>ISO/IEC 14882:2011 (C++11)</td>
+	    		<td>
+	    			<ul>
+	    				<li>Auto Keyword</li>
+	    				<li>Range-Based For Loop</li>
+	    				<li>Lambda Expressions and Function</li>
+	    				<li>Smart Pointers</li>
+	    				<li>Move Semantics and Rvalue References</li>
+	    				<li>constexpr</li>
+	    				<li>nullptr</li>
+	    				<li>Variadic Templates</li>
+	    				<li>Type Inference with decltype</li>
+                        <li>Uniform Initialization</li>
+                        <li>Strongly-Typed Enums</li>
+                        <li>Attributes</li>
+                        <li>Multithreading</li>
+                        <li>Hash Tables</li>
+                        <li>std::array container</li>
+	    			</ul>
+	    		</td>
+	    		<td>Major</td>
+	    	</tr>
+	    	<tr>
+	    		<td>ISO/IEC 14882:2014 (C++14)</td>
+	    		<td>
+	    			<ul>
+	    				<li>Generalized Lambdas</li>
+	    				<li>Reader-Writer Locks</li>
+	    				<li>constexpr included</li>
+	    				<li>Return type deductions extended to all functions</li>
+	    			</ul>
+	    		</td>
+	    		<td>Minor</td>
+	    	</tr>
+	    	<tr>
+	    		<td>ISO/IEC 14882:2017 (C++17)</td>
+	    		<td>
+	    			<ul>
+	    				<li>The file system library and Network concepts included</li>
+	    				<li>Improved Lambdas</li>
+	    				<li>Fold Expressions included</li>
+	    				<li>Initializers in if and switch statements</li>
+	    				<li>Concurrent and Parallel algorithms in Standard Template Library(STL)</li>
+	    				<li>Nested Namespaces</li>
+	    				<li>Transactional memory</li>
+	    				<li>Inline Variables</li>
+	    				<li>Optional header fil</li>
+                        <li>Class Template argument deduction(CTAD)</li>
+	    			</ul>
+	    		</td>
+	    		<td>Major</td>
+	    	</tr>
+	    	<tr>
+	    		<td>ISO/IEC 14882:2020 (C++20)</td>
+	    		<td>
+	    			<ul>
+	    				<li>C++ Concepts library</li>
+	    				<li>3-way comparisons</li>
+	    				<li>Map contains</li>
+	    				<li>Range-based for loop</li>
+	    				<li>New identifiers (import, module)</li>
+	    				<li>Calendar and time zone library</li>
+	    				<li>std::string functions</li>
+	    				<li>Array bounded/unbounded</li>
+	    				<li>std::to_array</li>
+                        <li>Likely and unlikely attributes</li>
+	    			</ul>
+	    		</td>
+	    		<td>Major</td>
+	    	</tr>
+	    	<tr>
+	    		<td>ISO/IEC 14882:2023 (C++23)</td>
+	    		<td>
+	    			<ul>
+	    				<li>Explicit Object Parameters (deducing this)</li>
+	    				<li>if consteval and if not consteval</li>
+	    				<li>Multidimensional Subscript Operator</li>
+	    				<li>Static Operators</li>
+	    				<li>Attributes on Lambda Expressions</li>
+	    				<li>Extended Floating-Point Types</li>
+	    				<li>Preprocessor Enhancements</li>
+	    				<li>Named Universal Character Escapes</li>
+	    				<li>UTF-8 Source File Encoding</li>
+                        <li>White-Space Trimming Before Line Splicing</li>
+                        <li>New Modules std and std.compat</li>
+                        <li>New Headers</li>
+                        <li>New library feature</li>
+                        <li>Standard Library Enhancements</li>
+	    			</ul>
+	    		</td>
+	    		<td>Major</td>
+	    	</tr>
+	    </table>
+	</div>
+
+	<div class="footer">
+		<div class="tooltip">
+		    <button>
+			    <a href="https://sites.google.com/u/0/d/1wqIpz-0FsEJ9t_dbTMgYtR6I03vZmsWU/p/1_Tuo_ufEb442xYn0ee-4j3-nCcL5UFE9/preview?authuser=0">< Kembali</a>
+		    </button>
+		    <span class="tooltiptext">Kembali ke catatan</span>
+	    </div>
+		<marquee>Informatika Ilmu yang menyenangkann ♫</marquee>
+		<div class="tooltip">
+			<button>
+				<a href="https://sites.google.com/u/0/d/1wqIpz-0FsEJ9t_dbTMgYtR6I03vZmsWU/p/1_Tuo_ufEb442xYn0ee-4j3-nCcL5UFE9/preview?authuser=0">> Lanjut</a>
+			</button>
+			<span class="tooltiptext">Topik Berikutnya</span>
+		</div>
+	</div>
+	<button id="static" onclick="topFunction()"> ^ <br>TOP</button>
+	<h5>Disunting pada 9 Desember 2024 oleh Naufal Raka Airizqi</h5>
+</body>
+</html>
