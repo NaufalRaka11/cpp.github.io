@@ -14,3 +14,10 @@ window.onscroll = function() {
   scrollFunction()
 }
 scrollFunction();
+
+ document.getElementById('button1').onclick = function(event) {
+        event.preventDefault();
+        
+        var currentTab = window.open('https://sites.google.com/view/naufalraka/catatan', '_blank'); 
+        window.close();
+    };
