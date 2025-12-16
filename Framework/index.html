@@ -1,11 +1,790 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Framework</title>
-		<link rel="stylesheet" type="text/css" href="styles.css">
-		<script type="text/javascript" src="main.js"></script>
-	</head>
-	<
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zelda-like RPG Adventure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Press Start 2P', cursive, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            overflow: hidden;
+            padding: 20px;
+        }
+        
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(0, 0, 30, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 100, 255, 0.5);
+            padding: 20px;
+            border: 3px solid #5ac8fa;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background: rgba(0, 20, 60, 0.8);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #5ac8fa;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .stat-box {
+            background: rgba(0, 40, 100, 0.9);
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 2px solid #4a90e2;
+            min-width: 150px;
+        }
+        
+        .game-title {
+            text-align: center;
+            text-shadow: 0 0 10px #00f, 0 0 20px #00f;
+            margin: 10px 0 20px;
+            font-size: 2.5rem;
+            color: #ffcc00;
+            letter-spacing: 3px;
+        }
+        
+        .game-content {
+            display: flex;
+            width: 100%;
+            gap: 20px;
+        }
+        
+        .game-world {
+            flex: 1;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 500px;
+            border: 4px solid #555;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+        }
+        
+        .game-ui {
+            width: 300px;
+            background: rgba(0, 30, 70, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid #5ac8fa;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .ui-section {
+            background: rgba(0, 20, 50, 0.7);
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid #4a90e2;
+        }
+        
+        .ui-title {
+            color: #ffcc00;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        
+        .inventory {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .item {
+            width: 60px;
+            height: 60px;
+            background: rgba(80, 120, 200, 0.6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #aaa;
+            transition: all 0.2s;
+        }
+        
+        .item:hover {
+            transform: scale(1.1);
+            border-color: #ffcc00;
+            background: rgba(100, 150, 255, 0.8);
+        }
+        
+        .quest-log {
+            min-height: 150px;
+        }
+        
+        .quest {
+            background: rgba(30, 60, 120, 0.7);
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 5px;
+            font-size: 0.7rem;
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+            text-align: center;
+        }
+        
+        .control-key {
+            background: rgba(0, 40, 100, 0.9);
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #4a90e2;
+        }
+        
+        .key {
+            color: #ffcc00;
+            font-size: 1.5rem;
+        }
+        
+        /* Game Elements */
+        .game-element {
+            position: absolute;
+            transition: transform 0.2s;
+        }
+        
+        .player {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #ffcc00, #ff9900);
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 15px #ffcc00;
+            z-index: 100;
+        }
+        
+        .enemy {
+            width: 35px;
+            height: 35px;
+            background: radial-gradient(circle, #ff4d4d, #cc0000);
+            border-radius: 50% 50% 50% 0;
+            border: 2px solid #fff;
+            box-shadow: 0 0 10px #ff0000;
+        }
+        
+        .item-element {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 2px solid #fff;
+            box-shadow: 0 0 10px #00ff00;
+        }
+        
+        .sword {
+            background: radial-gradient(circle, #cccccc, #666666);
+        }
+        
+        .shield {
+            background: radial-gradient(circle, #4d79ff, #0033cc);
+        }
+        
+        .health {
+            background: radial-gradient(circle, #4dff88, #00b33c);
+        }
+        
+        .coin {
+            background: radial-gradient(circle, #ffcc00, #cc9900);
+        }
+        
+        .npc {
+            width: 40px;
+            height: 40px;
+background: radial-gradient(circle, #5ac8fa, #007aff);
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 10px #5ac8fa;
+        }
+        
+        .dialog-box {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            background: rgba(0, 0, 40, 0.9);
+            border: 3px solid #5ac8fa;
+            border-radius: 10px;
+            padding: 15px;
+            color: white;
+            font-size: 0.9rem;
+            text-align: center;
+            display: none;
+            z-index: 200;
+        }
+        
+        .dialog-text {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .dialog-next {
+            color: #ffcc00;
+            cursor: pointer;
+        }
+        
+        .game-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 300;
+            display: none;
+        }
+        
+        .overlay-content {
+            background: rgba(0, 30, 60, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px solid #5ac8fa;
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .btn {
+            background: linear-gradient(to bottom, #ffcc00, #ff9900);
+            border: none;
+            color: #333;
+            padding: 12px 25px;
+            margin: 15px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #ffcc00;
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        
+        .float {
+            animation: float 2s infinite;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .game-content {
+                flex-direction: column;
+            }
+            
+            .game-ui {
+                width: 100%;
+            }
+            
+            .game-world {
+                height: 400px;
+            }
+            
+            .game-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="game-title">LEGEND OF THE WEB HERO</h1>
+        
+        <div class="game-header">
+            <div class="stats">
+                <div class="stat-box">
+                    <div>HEALTH: <span id="health">100</span></div>
+                </div>
+                <div class="stat-box">
+                    <div>COINS: <span id="coins">0</span></scroll></div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-box">
+                    <div>LEVEL: <span id="level">1</span></div>
+                </div>
+                <div class="stat-box">
+                    <div>SCORE: <span id="score">0</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-content">
+            <div class="game-world" id="gameWorld">
+                <div class="player" id="player"></div>
+                <div class="dialog-box" id="dialogBox">
+                    <div class="dialog-text" id="dialogText"></div>
+                    <div class="dialog-next" id="dialogNext">Press SPACE to continue</div>
+                </div>
+            </div>
+            
+            <div class="game-ui">
+                <div class="ui-section">
+                    <div class="ui-title">INVENTORY</div>
+                    <div class="inventory">
+                        <div class="item">🗡️</div>
+                        <div class="item">🛡️</div>
+                        <div class="item">❤️</div>
+                        <div class="item">🔑</div>
+                        <div class="item">💎</div>
+                        <div class="item">🧪</div>
+                    </div>
+                </div>
+                
+                <div class="ui-section quest-log">
+                    <div class="ui-title">ACTIVE QUESTS</div>
+                    <div class="quest">🗡️ Defeat 5 enemies (3/5)</div>
+                    <div class="quest">💰 Collect 20 coins (12/20)</div>
+                    <div class="quest">🗝️ Find the dungeon key</div>
+                </div>
+                
+                <div class="ui-section">
+                    <div class="ui-title">CONTROLS</div>
+                    <div class="controls">
+                        <div class="control-key">UP<br><span class="key">↑</span></div>
+                        <div class="control-key">ATTACK<br><span class="key">Z</span></div>
+                        <div class="control-key">INTERACT<br><span class="key">X</span></div>
+                        <div class="control-key">LEFT<br><span class="key">←</span></div>
+                        <div class="control-key">DOWN<br><span class="key">↓</span></div>
+                        <div class="control-key">RIGHT<br><span class="key">→</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="game-overlay" id="gameOverlay">
+        <div class="overlay-content">
+            <h2 id="overlayTitle">Quest Complete!</h2>
+            <p id="overlayMessage">You have successfully defeated the evil minions and restored peace to the kingdom!</p>
+            <div>
+                <button class="btn" id="restartBtn">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Game elements
+            const gameWorld = document.getElementById('gameWorld');
+            const player = document.getElementById('player');
+            const healthDisplay = document.getElementById('health');
+            const coinsDisplay = document.getElementById('coins');
+            const levelDisplay = document.getElementById('level');
+            const scoreDisplay = document.getElementById('score');
+            const dialogBox = document.getElementById('dialogBox');
+            const dialogText = document.getElementById('dialogText');
+            const dialogNext = document.getElementById('dialogNext');
+            const gameOverlay = document.getElementById('gameOverlay');
+            const overlayTitle = document.getElementById('overlayTitle');
+            const overlayMessage = document.getElementById('overlayMessage');
+            const restartBtn = document.getElementById('restartBtn');
+            
+            // Game state
+            let playerX = 250;
+            let playerY = 250;
+            let playerHealth = 100;
+            let coins = 0;
+            let level = 1;
+            let score = 0;
+            let gameActive = true;
+            
+            // NPC dialog data
+            const dialogs = [
+                "Welcome, brave hero! The kingdom is in peril.",
+                "Evil creatures have invaded our lands. We need your help!",
+                "Collect coins to buy equipment and defeat enemies.",
+                "Find the three sacred gems to unlock the final dungeon.",
+                "Good luck on your quest! May the light guide you."
+            ];
+            
+            // Game initialization
+            function initGame() {
+                updatePlayerPosition();
+                spawnElements();
+                startDialog();
+            }
+            
+            // Update player position on screen
+            function updatePlayerPosition() {
+                player.style.left = `${playerX}px`;
+                player.style.top = `${playerY}px`;
+            }
+            
+            // Spawn game elements (enemies, items, etc.)
+            function spawnElements() {
+                // Clear existing elements
+                const elements = document.querySelectorAll('.game-element:not(#player)');
+                elements.forEach(el => el.remove());
+                
+                // Spawn enemies
+                for (let i = 0; i < 5; i++) {
+                    spawnEnemy();
+                }
+                
+                // Spawn coins
+                for (let i = 0; i < 8; i++) {
+                    spawnItem('coin', '🪙');
+                }
+                
+                // Spawn health potions
+                for (let i = 0______; i < 3; i++) {
+                    spawnItem('health', '❤️');
+                }
+                
+                // Spawn NPC
+                spawnNPC();
+            }
+            
+            // Spawn an enemy at random position
+            function spawnEnemy() {
+                const enemy = document.createElement('div');
+                enemy.className = 'game-element enemy float';
+                
+                const x = Math.random() * (gameWorld.offsetWidth - 40);
+                const y = Math.random() * (gameWorld.offsetHeight - 40);
+                
+                enemy.style.left = `${x}px`;
+                enemy.style.top = `${y}px`;
+                
+                gameWorld.appendChild(enemy);
+                
+                // Enemy movement
+                let moveX = (Math.random() - 0.5) * 2;
+                let moveY = (Math.random() - 0.5) * 2;
+                
+                setInterval(() => {
+                    if (!gameActive) return;
+                    
+                    let currentX = parseFloat(enemy.style.left);
+                    let currentY = parseFloat(enemy.style.top);
+                    
+                    // Bounce off walls
+                    if (currentX <= 0 || currentX >= gameWorld.offsetWidth - 40) moveX *= -1;
+                    if (currentY <= 0 || currentY >= gameWorld.offsetHeight - 40) moveY *= -1;
+                    
+                    enemy.style.left = `${currentX + moveX}px`;
+                    enemy.style.top = `${currentY + moveY}px`;
+                    
+                    // Check collision with player
+                    const distance = Math.sqrt(
+                        Math.pow(playerX - currentX, 2) + 
+                        Math.pow(playerY - currentY, 2)
+                    );
+                    
+                    if (distance < 40) {
+                        takeDamage(5);
+                    }
+                }, 50);
+            }
+            
+            // Spawn an item
+            function spawnItem(type, symbol) {
+                const item = document.createElement('div');
+                item.className = `game-element item-element ${type} pulse`;
+                item.innerHTML = symbol;
+                
+                const x = Math.random() * (gameWorld.offsetWidth - 40);
+                const y = Math.random() * (gameWorld.offsetHeight - 40);
+                
+                item.style.left = `${x}px`;
+                item.style.top = `${y}px`;
+                
+                gameWorld.appendChild(item);
+            }
+            
+            // Spawn NPC
+            function spawnNPC() {
+                const npc = document.createElement('div');
+                npc.className = 'game-element npc float';
+                npc.style.left = '400px';
+                npc.style.top = '100px';
+                gameWorld.appendChild(npc);
+            }
+            
+            // Start dialog sequence
+            function startDialog() {
+                let dialogIndex = 0;
+                
+                function showNextDialog() {
+                    if (dialogIndex < dialogs.length) {
+                        showDialog(dialogs[dialogIndex]);
+                        dialogIndex++;
+                    } else {
+                        hideDialog();
+                    }
+                }
+                
+                dialogNext.addEventListener('click', showNextDialog);
+                showNextDialog();
+            }
+            
+            // Show dialog box with text
+            function showDialog(text) {
+                dialogText.textContent = text;
+                dialogBox.style.display = 'block';
+            }
+            
+            // Hide dialog box
+            function hideDialog() {
+                dialogBox.style.display = 'none';
+            }
+            
+            // Player takes damage
+            function takeDamage(amount) {
+                if (!gameActive) return;
+                
+                playerHealth -= amount;
+                healthDisplay.textContent = playerHealth;
+                
+                // Player hit effect
+                player.style.backgroundColor = '#ff4d4d';
+                setTimeout(() => {
+                    player.style.backgroundColor = '';
+                }, 200);
+                
+                // Game over check
+                if (playerHealth <= 0) {
+                    playerHealth = 0;
+                    endGame(false);
+                }
+            }
+            
+            // Collect coin
+            function collectCoin() {
+                coins++;
+                coinsDisplay.textContent = coins;
+                score += 10;
+                scoreDisplay.textContent = score;
+                
+                // Check for level up
+                if (coins % 10 === 0) {
+                    levelUp();
+                }
+            }
+            
+            // Collect health
+            function collectHealth() {
+                playerHealth = Math.min(playerHealth + 20, 100);
+                healthDisplay.textContent = playerHealth;
+                
+                // Health effect
+                player.style.boxShadow = '0 0 25px #00ff00';
+                setTimeout(() => {
+                    player.style.boxShadow = '';
+                }, 500);
+            }
+            
+            // Level up
+            function levelUp() {
+                level++;
+                levelDisplay.textContent = level;
+                
+                // Level up effect
+                player.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    player.style.transform = '';
+                }, 500);
+                
+                // Spawn more enemies
+                for (let i = 0; i < 2; i++) {
+                    spawnEnemy();
+                }
+            }
+            
+            // End game (win or lose)
+            function endGame(isWin) {
+                gameActive = false;
+                
+                if (isWin) {
+                    overlayTitle.textContent = "Victory!";
+                    overlayMessage.textContent = "You have saved the kingdom and proven yourself a true hero!";
+                } else {
+                    overlayTitle.textContent = "Game Over";
+                    overlayMessage.textContent = "The forces of darkness have prevailed... Try again!";
+                }
+                
+                gameOverlay.style.display = 'flex';
+            }
+            
+            // Restart game
+            restartBtn.addEventListener('click', () => {
+                playerHealth = 100;
+                coins = 0;
+                level = 1;
+                score = 0;
+                
+                healthDisplay.textContent = playerHealth;
+                coinsDisplay.textContent = coins;
+                levelDisplay.textContent = level;
+                scoreDisplay.textContent = score;
+                
+                gameOverlay.style.display = 'none';
+                gameActive = true;
+                
+                playerX = 250;
+                playerY = 250;
+                updatePlayerPosition();
+                
+                spawnElements();
+            });
+            
+            // Keyboard controls
+            document.addEventListener('keydown', (e) => {
+                if (!gameActive) return;
+                
+                const speed = 5;
+                const worldWidth = gameWorld.offsetWidth;
+                const worldHeight = gameWorld.offsetHeight;
+                
+                switch(e.key) {
+                    case 'ArrowUp':
+                        playerY = Math.max(playerY - speed, 0);
+                        break;
+                    case 'ArrowDown':
+                        playerY = Math.min(playerY + speed, worldHeight - 40);
+                        break;
+                    case 'ArrowLeft':
+                        playerX = Math.max(playerX - speed, 0);
+                        break;
+                    case 'ArrowRight':
+                        playerX = Math.min(playerX + speed, worldWidth - 40);
+                        break;
+                    case ' ':
+                        attack();
+                        break;
+                }
+                
+                updatePlayerPosition();
+                checkItemCollisions();
+            });
+            
+            // Player attack
+            function attack() {
+                // Attack animation
+                player.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    player.style.transform = '';
+                }, 200);
+                
+                // Check for enemy hits
+                const enemies = document.querySelectorAll('.enemy');
+                enemies.forEach(enemy => {
+                    const enemyX = parseFloat(enemy.style.left);
+                    const enemyY = parseFloat(enemy.style.top);
+                    
+                    const distance = Math.sqrt(
+                        Math.pow(playerX - enemyX, 2) + 
+                        Math.pow(playerY - enemyY, 2)
+                    );
+                    
+                    if (distance < 60) {
+                        // Enemy hit effect
+                        enemy.style.backgroundColor = '#ff0000';
+                        setTimeout(() => {
+                            enemy.style.backgroundColor = '';
+                        }, 200);
+                        
+                        // Remove enemy after a delay
+                        setTimeout(() => {
+                            if (enemy.parentNode) {
+                                enemy.parentNode.removeChild(enemy);
+                                
+                                // Add score and spawn new enemy
+                                score += 50;
+                                scoreDisplay.textContent = score;
+                                spawnEnemy();
+                            }
+                        }, 300);
+                    }
+                });
+            }
+            
+            // Check for item collisions
+            function checkItemCollisions() {
+                const items = document.querySelectorAll('.item-element');
+                items.forEach(item => {
+                    const itemX = parseFloat(item.style.left);
+                    const itemY = parseFloat(item.style.top);
+                    
+                    const distance = Math.sqrt(
+                        Math.pow(playerX - itemX, 2) + 
+                        Math.pow(playerY - itemY, 2)
+                    );
+                    
+                    if (distance < 35) {
+                        if (item.classList.contains('coin')) {
+                            collectCoin();
+                        } else if (item.classList.contains('health')) {
+                            collectHealth();
+                        }
+                        
+                        item.remove();
+                    }
+                });
+            }
+            
+            // Initialize the game
+            initGame();
+        });
+    </script>
+</body>
 </html>
