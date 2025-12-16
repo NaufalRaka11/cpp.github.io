@@ -20,7 +20,7 @@
             align-items: center;
             justify-content: center;
             color: #fff;
-            overflow: hidden;
+            overflow: auto;
             padding: 20px;
         }
         
@@ -37,6 +37,7 @@
             border: 3px solid #5ac8fa;
             position: relative;
             overflow: hidden;
+            margin: 20px 0;
         }
         
         .game-header {
@@ -48,11 +49,15 @@
             border-radius: 10px;
             margin-bottom: 20px;
             border: 2px solid #5ac8fa;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
         .stats {
             display: flex;
-            gap: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         
         .stat-box {
@@ -61,15 +66,17 @@
             border-radius: 8px;
             border: 2px solid #4a90e2;
             min-width: 150px;
+            font-size: 0.85rem;
         }
         
         .game-title {
             text-align: center;
             text-shadow: 0 0 10px #00f, 0 0 20px #00f;
             margin: 10px 0 20px;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #ffcc00;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
+            line-height: 1.4;
         }
         
         .game-content {
@@ -84,7 +91,7 @@
             border-radius: 10px;
             overflow: hidden;
             position: relative;
-            height: 500px;
+            height: 450px;
             border: 4px solid #555;
             box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
         }
@@ -97,33 +104,33 @@
             border: 2px solid #5ac8fa;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
         
         .ui-section {
             background: rgba(0, 20, 50, 0.7);
             border-radius: 8px;
-            padding: 15px;
+            padding: 12px;
             border: 1px solid #4a90e2;
         }
         
         .ui-title {
             color: #ffcc00;
             margin-bottom: 10px;
-            font-size: 1.2rem;
+            font-size: 0.9rem;
             text-align: center;
         }
         
         .inventory {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
         }
         
         .item {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             background: rgba(80, 120, 200, 0.6);
             border-radius: 8px;
             display: flex;
@@ -131,6 +138,7 @@
             justify-content: center;
             border: 2px solid #aaa;
             transition: all 0.2s;
+            font-size: 1.2rem;
         }
         
         .item:hover {
@@ -140,7 +148,7 @@
         }
         
         .quest-log {
-            min-height: 150px;
+            min-height: 120px;
         }
         
         .quest {
@@ -148,26 +156,30 @@
             padding: 8px;
             margin: 8px 0;
             border-radius: 5px;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
+            line-height: 1.5;
         }
         
         .controls {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-gap: 10px;
+            grid-gap: 8px;
             text-align: center;
+            font-size: 0.7rem;
         }
         
         .control-key {
             background: rgba(0, 40, 100, 0.9);
-            padding: 10px;
+            padding: 8px;
             border-radius: 8px;
             border: 2px solid #4a90e2;
         }
         
         .key {
             color: #ffcc00;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
+            display: block;
+            margin-top: 5px;
         }
         
         /* Game Elements */
@@ -226,7 +238,7 @@
         .npc {
             width: 40px;
             height: 40px;
-background: radial-gradient(circle, #5ac8fa, #007aff);
+            background: radial-gradient(circle, #5ac8fa, #007aff);
             border-radius: 50%;
             border: 2px solid #fff;
             box-shadow: 0 0 10px #5ac8fa;
@@ -241,26 +253,27 @@ background: radial-gradient(circle, #5ac8fa, #007aff);
             background: rgba(0, 0, 40, 0.9);
             border: 3px solid #5ac8fa;
             border-radius: 10px;
-            padding: 15px;
+            padding: 12px;
             color: white;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-align: center;
             display: none;
             z-index: 200;
         }
         
         .dialog-text {
-            margin-bottom: 10px;
-            line-height: 1.5;
+            margin-bottom: 8px;
+            line-height: 1.4;
         }
         
         .dialog-next {
             color: #ffcc00;
             cursor: pointer;
+            font-size: 0.7rem;
         }
         
         .game-overlay {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -281,6 +294,8 @@ background: radial-gradient(circle, #5ac8fa, #007aff);
             border: 3px solid #5ac8fa;
             text-align: center;
             max-width: 500px;
+            width: 90%;
+            margin: 20px;
         }
         
         .btn {
@@ -334,11 +349,55 @@ background: radial-gradient(circle, #5ac8fa, #007aff);
             }
             
             .game-world {
-                height: 400px;
+                height: 350px;
             }
             
             .game-title {
-                font-size: 1.8rem;
+                font-size: 1.4rem;
+            }
+            
+            .stat-box {
+                min-width: 120px;
+                font-size: 0.7rem;
+                padding: 8px 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .game-world {
+                height: 300px;
+            }
+            
+            .game-title {
+                font-size: 1.2rem;
+            }
+            
+            .stat-box {
+                min-width: 100px;
+                font-size: 0.6rem;
+            }
+            
+            .ui-section {
+                padding: 10px;
+            }
+            
+            .item {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .controls {
+                grid-gap: 5px;
+            }
+            
+            .control-key {
+                padding: 5px;
+                font-size: 0.6rem;
+            }
+            
+            .key {
+                font-size: 1rem;
             }
         }
     </style>
@@ -354,7 +413,7 @@ background: radial-gradient(circle, #5ac8fa, #007aff);
                     <div>HEALTH: <span id="health">100</span></div>
                 </div>
                 <div class="stat-box">
-                    <div>COINS: <span id="coins">0</span></scroll></div>
+                    <div>COINS: <span id="coins">0</span></div>
                 </div>
             </div>
             <div class="stats">
@@ -486,7 +545,7 @@ background: radial-gradient(circle, #5ac8fa, #007aff);
                 }
                 
                 // Spawn health potions
-                for (let i = 0______; i < 3; i++) {
+                for (let i = 0; i < 3; i++) {
                     spawnItem('health', '❤️');
                 }
                 
@@ -709,7 +768,11 @@ background: radial-gradient(circle, #5ac8fa, #007aff);
                         playerX = Math.min(playerX + speed, worldWidth - 40);
                         break;
                     case ' ':
-                        attack();
+                        if (dialogBox.style.display === 'block') {
+                            document.getElementById('dialogNext').click();
+                        } else {
+                            attack();
+                        }
                         break;
                 }
                 
